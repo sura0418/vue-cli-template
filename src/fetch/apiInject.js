@@ -17,7 +17,7 @@ axios.interceptors.request.use(config => {
 });
 
 // 返回状态判断
-axios.interceptors.response.use((res) => {
+axios.interceptors.response.use(res => {
     const data = res.data;
     if (data.code !== 200) {
         if (data.code === 402) {
