@@ -32,20 +32,29 @@ VueRouter.prototype.push = function push(location, onResolve, onReject) {
     if (onResolve || onReject) return originalPush.call(this, location, onResolve, onReject)
     return originalPush.call(this, location).catch(err => err)
 }
-
+const user = Cookies.get('user');
 router.beforeEach((to, from, next) => {
 
     if (to.matched.some(r => r.meta.requireAuth)) {
-        const user = Cookies.get('user');
         if (user) {
             next();
         } else {
-            next({ name: 'home' });
-            return;
+            //防止无限循环
+            if (to.name === 'login') {
+                next({
+                    path: '/login',
+                    query: { redirect: to.fullPath }
+                });
+                return
+            }
+            next({
+                path: '/login',
+                query: { redirect: to.fullPath }
+            });
         }
+    } else {
+        next();
     }
-    next();
 });
-
 
 export default router

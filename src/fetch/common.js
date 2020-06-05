@@ -1,7 +1,7 @@
-import fetch from './apiInject';
+import { getFetch } from './apiInject';
 
 export default {
     register(param) {
-        return fetch('member_register', param);
+        return getFetch('member_register', param);
     },
 }

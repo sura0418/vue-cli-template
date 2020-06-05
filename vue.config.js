@@ -9,6 +9,7 @@ module.exports = {
     publicPath: '/', // 设置打包文件相对路径
     lintOnSave: true,
     outputDir: 'dist',
+    productionSourceMap: false,
     chainWebpack: (config) => {
         config.resolve.alias
             .set('@/fetch', resolve('src/fetch'))
